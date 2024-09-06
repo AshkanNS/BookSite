@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}
+Order Confirmation
+{% endblock %}
+
+{% block content %}
+<div class="confirmation-container">
+    <h2>Tack för ditt köp!</h2>
+    <p>Din total kostnad vart {{ final_total }} kr med {{ delivery_option }} leverans och betalning via {{ payment_option }}.</p>
+</div>
+{% endblock %}

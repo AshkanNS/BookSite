@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+Order Overview
+{% endblock %}
+
+{% block content %}
+<div class="order-overview-container">
+    <h2>Order översikt</h2>
+    <ul>
+    {% for item in cart %}
+        <li class="order-item">
+            <img src="{{ item.image_url }}" alt="{{ item.title }}" class="item-image">
+            <div class="item-details">
+                <h3>{{ item.title }}</h3>
+                <p>Pris: {{ item.price }} kr</p>
+                <p>Antal: {{ item.quantity }}</p>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+
+    <div class="total-price">
+        <h3> Total Pris: {{ total_price }} kr</h3>
+    </div>
+
+    <div class="delivery-payment">
+        <h3>Frakt Alternativ</h3>
+        <form action="{{ url_for('place_order') }}" method="post">
+            <div class="delivery-options">
+                <label>
+                    <input type="radio" name="delivery" value="standard" required>
+                    Standard Leverans - (hämtas på plats)
+                </label>
+            </div>
+        <h3>Betalsätt</h3>
+        <div class="payment-option">
+            <label>
+                <input type="radio" name="payment" value="swish" required>
+                Betala med Swish <br>
+            </label>
+        </div>    
+        <button type="submit" class="place-order-btn">Slutför Köp</button>
+    </form>
+</div>
+{% endblock %}

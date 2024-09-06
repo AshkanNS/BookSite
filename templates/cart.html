@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+Cart
+{% endblock %}
+
+{% block content %}
+<div class="cart-container">
+    <h2>Din Kundvagn</h2>
+    {% if cart %}
+        <ul>
+        {% for item in cart %}
+            <li class="cart-item">
+                <img src="{{ item.image_url }}" alt="{{ item.title }}" class="item-image">
+                <h3>{{ item.title }}</h3>
+                <p>Författare: {{ item.author }}</p>
+                <p>Pris: {{ item.price }} kr</p>
+                <p class="item-quantity">
+                    <a href="{{ url_for('decrease_quantity', book_id=item.id) }}" class="quantity-btn">-</a>
+                    <input type="text" id="quantity{{ item.id }}" value="{{ item.quantity }}" readonly>
+                    <a href="{{ url_for('increase_quantity', book_id=item.id) }}" class="quantity-btn">+</a>
+                </p>
+                <p class="item-total">Total: {{ item.total }} kr</p>
+                <a href="{{ url_for('remove_from_cart', book_id=item.id) }}" class="remove-btn">Ta bort</a>
+            </li>
+        {% endfor %}
+        </ul>
+        <div class="cart-kassa">
+            <h3> Total Pris: {{ total_price }} kr</h3>
+            <form action="{{ url_for('checkout') }}" method="post">
+                <button type="submit" class="checkout-btn">Till Kassan</button>
+            </form>
+        </div>    
+    {% else %}
+        <p>Din Kundvagn är tom.</p>
+    {% endif %}
+</div>
+{% endblock %}
